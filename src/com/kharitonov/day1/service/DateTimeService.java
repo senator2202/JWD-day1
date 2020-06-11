@@ -1,0 +1,46 @@
+package com.kharitonov.day1.service;
+
+import com.kharitonov.day1.entity.Month;
+import com.kharitonov.day1.entity.Time;
+import com.kharitonov.day1.exception.TaskException;
+import com.kharitonov.day1.validator.DateTimeValidator;
+
+public class DateTimeService {
+    /*Method returns number of days in month of definite year*/
+    public int getDays(int month, int year) throws TaskException {
+        DateTimeValidator dateTimeValidator = new DateTimeValidator();
+        if (!dateTimeValidator.validateMonth(month)) {
+            throw new TaskException("Wrong month value! " +
+                    "It must be between 1 and 12!");
+        }
+        if (!dateTimeValidator.validateYear(year)) {
+            throw new TaskException("Wrong year value! " +
+                    "It must be > 0!");
+        }
+        return (isLeapYear(year) && month == 2)
+                ? Month.values()[month - 1].getDays() + 1
+                : Month.values()[month - 1].getDays();
+    }
+
+    /*Method returns true if the year is leap*/
+    public boolean isLeapYear(int year) throws TaskException {
+        if (!new DateTimeValidator().validateYear(year)) {
+            throw new TaskException("Wrong year value!" +
+                    " It must be > 0!");
+        }
+        return (year % 4 == 0);
+    }
+
+    /*Method splits seconds into hours, minutes, seconds*/
+    public Time splitSeconds(int totalSeconds) throws TaskException {
+        if (!new DateTimeValidator().validateDaySeconds(totalSeconds)) {
+            throw new TaskException("Number of seconds must be" +
+                    "between 0 and 86400!");
+        }
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds - (hours * 3600)) / 60;
+        int seconds = totalSeconds - ((hours * 3600) + minutes * 60);
+        return new com.kharitonov.day1.entity.Time(hours, minutes, seconds);
+    }
+
+}
