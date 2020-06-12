@@ -15,11 +15,4 @@ public class TaskFunction {
             return 1 / (Math.pow(x, 3) - 6);
         }
     }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("TaskFunction{");
-        sb.append('}');
-        return sb.toString();
-    }
 }

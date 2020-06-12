@@ -8,23 +8,23 @@ public class PointConsole {
             "to origin as ";
 
     public void printClosestPoint(Point point1, Point point2, int flag) {
-        String result;
+        StringBuilder sb = new StringBuilder();
         switch (flag) {
             case 0:
-                result = point1 + SAME + point2;
+                sb.append(point1).append(SAME).append(point2);
                 break;
 
             case 1:
-                result = point1 + CLOSER + point2;
+                sb.append(point1).append(CLOSER).append(point2);
                 break;
 
             case 2:
-                result = point2 + CLOSER + point1;
+                sb.append(point2).append(CLOSER).append(point1);
                 break;
 
             default:
-                result = "";
+                break;
         }
-        System.out.println(result);
+        System.out.println(sb.toString());
     }
 }
